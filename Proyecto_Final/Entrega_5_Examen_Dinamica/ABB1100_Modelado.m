@@ -232,7 +232,7 @@ syms m1 m2 m3 m4 m5 m6 m7
 % Inercia de cuerpos del Robot
 syms Ixx1 Ixx2 Ixx3 Ixx4 Ixx5 Ixx6 Ixx7
 syms Iyy1 Iyy2 Iyy3 Iyy4 Iyy5 Iyy6 Iyy7
-syms Izz1 Izz3 Izz3 Izz4 Izz5 Izz6 Izz7
+syms Izz1 Izz2 Izz3 Izz4 Izz5 Izz6 Izz7
 
 % Gravedad
 syms g
@@ -245,8 +245,6 @@ I3 = diag([Ixx3 Iyy3 Izz3]);
 I4 = diag([Ixx4 Iyy4 Izz4]);
 I5 = diag([Ixx5 Iyy5 Izz5]);
 I6 = diag([Ixx6 Iyy6 Izz6]);
-I7 = diag([Ixx7 Iyy6 Izz6]);
-
-
+I7 = diag([Ixx7 Iyy6 Izz7]);
 
 % Vectores de Posición a Centros de Masa
