@@ -248,3 +248,13 @@ I6 = diag([Ixx6 Iyy6 Izz6]);
 I7 = diag([Ixx7 Iyy6 Izz7]);
 
 % Vectores de Posición a Centros de Masa
+
+P01 = S01(1:3,4);
+P12 = S12(1:3,4);
+P23 = S23(1:3,4);
+P34 = S34(1:3,4);
+P45 = S45(1:3,4);
+P56 = S56(1:3,4);
+P67 = S67(1:3,4);
+
+P01_cm = 
