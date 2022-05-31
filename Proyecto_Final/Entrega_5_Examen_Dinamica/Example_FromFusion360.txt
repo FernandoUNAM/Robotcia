@@ -1,0 +1,10 @@
+	Momento de inercia en el centro de masa   (g mm^2)
+		Ixx	5.233E+07
+		Ixy	39733.058
+		Ixz	3.922E+05
+		Iyx	39733.058
+		Iyy	3.866E+07
+		Iyz	-3.664E+05
+		Izx	3.922E+05
+		Izy	-3.664E+05
+		Izz	3.807E+07

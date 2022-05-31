@@ -1,0 +1,45 @@
+General
+Número de la piezaComponente7
+Nombre de piezaComponente7
+Descripción
+Nombre de materialAluminio 7075
+
+Administrar
+Número de elemento
+Ciclo de vida
+Revisión
+Estado
+Orden de cambio
+
+Propiedades físicas
+Mass20.587 g
+Volumen7326.317 mm^3
+Densidad0.003 g / mm^3
+Área4746.793 mm^2
+Universal X, Y, Z0.00 mm, 0.00 mm, 0.00 mm
+Centro de masa359.683 mm, -0.059 mm, 616.963 mm
+Cuadro delimitador
+Longitud8.00 mm
+Anchura40.00 mm
+Altura40.00 mm
+Momento de inercia en el centro de masa   (g mm^2)
+I() = 4872.572;
+I() = 1.807
+I() = 0.161
+I() = 1.807
+I() = 2503.971;
+I() = -17.413
+I() = 0.161
+I() = -17.413
+I() = 2606.234;
+Momento de inercia en origen   (g mm^2)
+I() = 7.841E+06;
+I() = 435.185
+I() = -4.568E+06;
+I() = 435.185
+I() = 1.050E+07;
+I() = 725.958
+I() = -4.568E+06;
+I() = 725.958
+I() = 2.666E+06;
+
