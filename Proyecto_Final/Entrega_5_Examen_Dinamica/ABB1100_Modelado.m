@@ -229,20 +229,24 @@ diary off
 
 %% Modelo Dinámico
 
-% Aceleraciones Articulares
-syms q1pp q2pp q3pp q4pp q5pp q6pp q7pp
-
-% Masa de cuerpos del Robot
-syms m1 m2 m3 m4 m5 m6 m7
-
-% Inercia de cuerpos del Robot
-
-syms Ixx1 Ixx2 Ixx3 Ixx4 Ixx5 Ixx6 Ixx7
-syms Iyy1 Iyy2 Iyy3 Iyy4 Iyy5 Iyy6 Iyy7
-syms Izz1 Izz2 Izz3 Izz4 Izz5 Izz6 Izz7
-
-% Gravedad
 syms g
+
+syms l1 l2 l3 l4 
+
+syms m1 m2 m3 m4 m5 m6
+
+syms q1 q2 q3 q4 q5 q6
+syms q1p q2p q3p q4p q5p q6p
+syms q1pp q2pp q3pp q4pp q5pp q6pp
+
+syms dcx1 dcx2 dcx3 dcx4 dcx5 dcx6
+syms dcy1 dcy2 dcy3 dcy4 dcy5 dcy6
+syms dcz1 dcz2 dcz3 dcz4 dcz5 dcz6
+
+syms Ixx1 Ixx2 Ixx3 Ixx4 Ixx5 Ixx6 
+syms Iyy1 Iyy2 Iyy3 Iyy4 Iyy5 Iyy6 
+syms Izz1 Izz2 Izz3 Izz4 Izz5 Izz6
+
 
 % Matrices de Inercias
 
@@ -252,17 +256,15 @@ I3 = diag([Ixx3 Iyy3 Izz3]);
 I4 = diag([Ixx4 Iyy4 Izz4]);
 I5 = diag([Ixx5 Iyy5 Izz5]);
 I6 = diag([Ixx6 Iyy6 Izz6]);
-I7 = diag([Ixx7 Iyy6 Izz7]);
 
 % Vectores de Posición a los Centros de Masa
 
-P0_cm0 = [dcx0 dcy0 dcz0];
-P1_cm1 = [dcx1 dcy1 dcz1];
-P2_cm2 = [dcx2 dcy2 dcz2];
-P3_cm3 = [dcx3 dcy3 dcz3];
-P4_cm4 = [dcx4 dcy4 dcz4];
-P5_cm5 = [dcx5 dcy5 dcz5];
-P6_cm6 = [dcx6 dcy6 dcz6];
+P1_cm1 = [dcx1;dcy1;dcz1];
+P2_cm2 = [dcx2;dcy2;dcz2];
+P3_cm3 = [dcx3;dcy3;dcz3];
+P4_cm4 = [dcx4;dcy4;dcz4];
+P5_cm5 = [dcx5;dcy5;dcz5];
+P6_cm6 = [dcx6;dcy6;dcz6];
 
 % Energía Cinética
 
@@ -275,38 +277,6 @@ k6=1/2*m6*transpose(v66+cross(w66,P6_cm6))*(v66+cross(w66,P6_cm6))+1/2*transpose
 
 kt=k1+k2+k3+k4+k5+k6;
 
-%% Cálculo del Modelo Dinámico
-
-clear; clc;
-
-syms g
-
-syms l1 l2 l3 l4 
-
-syms q1 q2 q3 q4 q5 q6
-
-syms m1 m2 m3 m4 m5 m6 m7
-
-syms dcx1 dcx2 dcx3 dcx4 dcx5 dcx6 dcx7
-syms dcy1 dcy2 dcy3 dcy4 dcy5 dcy6 dcy7
-syms dcz1 dcz2 dcz3 dcz4 dcz5 dcz6 dcz7
-
-S01 = DHC(0,0,q1,l1);
-S12 = DHC(pi/2,0,(pi/2)+q2,0);
-S23 = DHC(0,l2,q3,0);
-S34 = DHC(pi/2,0,q4,l3);
-S45 = DHC(-pi/2,0,q5,0);
-S56 = DHC(pi/2,0,q6,0);
-S67 = DHC(0,0,0,l4);
-
-S02=S01*S12;
-S03=S01*S12*S23;
-S04=S01*S12*S23*S34;
-S05=S01*S12*S23*S34*S45;
-S06=S01*S12*S23*S34*S45*S56;
-S07=S01*S12*S23*S34*S45*S56*S67;
-
-
 % Alturas a los Centros de Masa
 
 h1 = subs(S01(3,4),l1,l1+dcz1);
@@ -316,12 +286,53 @@ h4 = subs(S04(3,4),l3,l3+dcz4);
 h5 = subs(S05(3,4),l3,l3+dcz5);
 h6 = subs(S06(3,4),l4,l4+dcz6);
 
-%% Energía Potencial
+% Energía Potencial
 
-u1 = m2*g*h1;
-u2 = m3*g*h2;
-u3 = m4*g*h3;
-u4 = m5*g*h4;
-u5 = m6*g*h5;
-u6 = m7*g*h6;
+u1 = m1*g*h1;
+u2 = m2*g*h2;
+u3 = m3*g*h3;
+u4 = m4*g*h4;
+u5 = m5*g*h5;
+u6 = m6*g*h6;
+
+ut = u1 + u2 + u3 + u4 + u5 +u6;
+
+% Función Lagrangiana
+
+L = kt - ut;
+
+%% Ecuaciones de Movimiento
+
+q   = [q1;q2;q3;q4;q5;q6];
+qp  = [q1p;q2p;q3p;q4p;q5p;q6p];
+qpp = [q1pp;q2pp;q3pp;q4pp;q5pp;q6pp];
+
+Qp = [qp;qpp];
+
+tau1 = [diff(diff(L,q1p),q1)    diff(diff(L,q1p),q2)    diff(diff(L,q1p),q3)    diff(diff(L,q1p),q4)    diff(diff(L,q1p),q5)    diff(diff(L,q1p),q6)...
+        diff(diff(L,q1p),q1p)    diff(diff(L,q1p),q2p)    diff(diff(L,q1p),q3p)    diff(diff(L,q1p),q4p)    diff(diff(L,q1p),q5p)    diff(diff(L,q1p),q6p)]*Qp-diff(L,q1);
+
+
+tau2 = [diff(diff(L,q2p),q1)    diff(diff(L,q2p),q2)    diff(diff(L,q2p),q3)    diff(diff(L,q2p),q4)    diff(diff(L,q2p),q5)    diff(diff(L,q2p),q6)...
+        diff(diff(L,q2p),q1p)    diff(diff(L,q2p),q2p)    diff(diff(L,q2p),q3p)    diff(diff(L,q2p),q4p)    diff(diff(L,q2p),q5p)    diff(diff(L,q2p),q6p)]*Qp-diff(L,q2);
+
+
+tau3 = [diff(diff(L,q3p),q1)    diff(diff(L,q3p),q2)    diff(diff(L,q3p),q3)    diff(diff(L,q3p),q4)    diff(diff(L,q3p),q5)    diff(diff(L,q3p),q6)...
+        diff(diff(L,q3p),q1p)    diff(diff(L,q3p),q2p)    diff(diff(L,q3p),q3p)    diff(diff(L,q3p),q4p)    diff(diff(L,q3p),q5p)    diff(diff(L,q3p),q6p)]*Qp-diff(L,q3);
+
+
+tau4 = [diff(diff(L,q4p),q1)    diff(diff(L,q4p),q2)    diff(diff(L,q4p),q3)    diff(diff(L,q4p),q4)    diff(diff(L,q4p),q5)    diff(diff(L,q4p),q6)...
+        diff(diff(L,q4p),q1p)    diff(diff(L,q4p),q2p)    diff(diff(L,q4p),q3p)    diff(diff(L,q4p),q4p)    diff(diff(L,q4p),q5p)    diff(diff(L,q4p),q6p)]*Qp-diff(L,q4);
+
+
+tau5 = [diff(diff(L,q5p),q1)    diff(diff(L,q5p),q2)    diff(diff(L,q5p),q3)    diff(diff(L,q5p),q4)    diff(diff(L,q5p),q5)    diff(diff(L,q5p),q6)...
+        diff(diff(L,q5p),q1p)    diff(diff(L,q5p),q2p)    diff(diff(L,q5p),q3p)    diff(diff(L,q5p),q4p)    diff(diff(L,q5p),q5p)    diff(diff(L,q5p),q6p)]*Qp-diff(L,q5);
+
+
+tau6 = [diff(diff(L,q6p),q1)    diff(diff(L,q6p),q2)    diff(diff(L,q6p),q3)    diff(diff(L,q6p),q4)    diff(diff(L,q6p),q5)    diff(diff(L,q6p),q6)...
+        diff(diff(L,q6p),q1p)    diff(diff(L,q6p),q2p)    diff(diff(L,q6p),q3p)    diff(diff(L,q6p),q4p)    diff(diff(L,q6p),q5p)    diff(diff(L,q6p),q6p)]*Qp-diff(L,q6);
+
+
+
+
 
