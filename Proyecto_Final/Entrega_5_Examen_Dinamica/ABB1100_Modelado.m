@@ -275,13 +275,21 @@ k6=1/2*m6*transpose(v66+cross(w66,P6_cm6))*(v66+cross(w66,P6_cm6))+1/2*transpose
 
 kt=k1+k2+k3+k4+k5+k6;
 
-%%
+%% Cálculo del Modelo Dinámico
 
 clear; clc;
 
+syms g
+
 syms l1 l2 l3 l4 
+
 syms q1 q2 q3 q4 q5 q6
-syms c
+
+syms m1 m2 m3 m4 m5 m6 m7
+
+syms dcx1 dcx2 dcx3 dcx4 dcx5 dcx6 dcx7
+syms dcy1 dcy2 dcy3 dcy4 dcy5 dcy6 dcy7
+syms dcz1 dcz2 dcz3 dcz4 dcz5 dcz6 dcz7
 
 S01 = DHC(0,0,q1,l1);
 S12 = DHC(pi/2,0,(pi/2)+q2,0);
@@ -299,19 +307,34 @@ S06=S01*S12*S23*S34*S45*S56;
 S07=S01*S12*S23*S34*S45*S56*S67;
 
 
-%%
 q1 = 0; q2 = 0; q3 = 0; q4 = 0; q5 = 0; q6 = 0;
-
-
 
 % Alturas a los Centros de Masa
 
-h1=subs(S01(3,4),l1,dcz1);
-h2=subs(S02(3,4),l1,dcz2);
-h3=subs(S03(3,4),l2,dcz3);
+h1 = subs(S01(3,4),l1,l1+dcz1);
+h2 = subs(S02(3,4),l1,l1+dcz2);
+h3 = subs(S03(3,4),l2,l2+dcz3);
+h4 = subs(S04(3,4),l3,l3+dcz4);
+h5 = subs(S05(3,4),l3,l3+dcz5);
+h6 = subs(S06(3,4),l4,l4+dcz6);
+
 
 ABB1100_Parametros
 
 double(eval(h1))
 double(eval(h2))
 double(eval(h3))
+double(eval(h4))
+double(eval(h5))
+double(eval(h6))
+
+
+%% Energía Potencial
+
+u1 = m2*g*h1;
+u2 = m3*g*h2;
+u3 = m4*g*h3;
+u4 = m5*g*h4;
+u5 = m6*g*h5;
+u6 = m7*g*h6;
+
