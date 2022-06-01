@@ -4,24 +4,12 @@
 
 % Robot's Links Length [m]
 
-%l1 = .327;
-%l2 = .290;
-%l3 = .300;
-%l4 = .064;
+l1 = .327;
+l2 = .290;
+l3 = .300;
+l4 = .064;
 
 % Distance to the Center of Mass [mm]
-
-%{
-cx1 = -27.873;  cy1 = 0.007;    cz1 = 73.884;
-cx2 = 6.272;    cy2 = 0.289;    cz2 = 235.419;
-cx3 = -8.702;   cy3 = 0.704;    cz3 = 449.173;
-cx4 = -6.611;   cy4 = -4.914;   cz4 = 610.415;
-cx5 = 179.89;   cy5 = -0.288;   cz5 = 619.315;
-cx6 = 312.701;  cy6 = 0.188;    cz6 = 616.996;
-cx7 = 359.683;  cy7 = -0.059;   cz7 = 616.963;
-%}
-
-%dcx0 = -27.873;     dcy0 = 0.007;       dcz0 = 73.884;
 
 dcx1 = 0.006272;      dcy1 = 0.000289;       dcz1 = -0.089581;
 dcx2 = -0.008702;     dcy2 = 0.000704;       dcz2 = 0.124173;
@@ -126,15 +114,6 @@ MiddleEdge = [.080;0;altura];
     conveyorz = [MiddleEdge(3),         MiddleEdge(3),          MiddleEdge(3),          MiddleEdge(3)];
 
 ConveyorPosition = [conveyorx;conveyory;conveyorz];
-%%
+%% Cajas 
 
 Box1Pos = [MiddleEdge+ancho];
-
-
-%{
-Box1 = [[MiddleEdge(1)+ancho MiddleEdge(1)+ancho MiddleEdge(1)+ancho+Lados MiddleEdge(1)+ancho+Lados],...
-        [0 Lados Lados 0],[ones(1,4)*altura]];
-
-Box2 = [[MiddleEdge(1)+ancho MiddleEdge(1)+ancho MiddleEdge(1)+ancho+Lados MiddleEdge(1)+ancho+Lados],...
-        [0 -Lados -Lados 0],[ones(1,4)*altura]];
-%}

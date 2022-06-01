@@ -279,7 +279,9 @@ kt=k1+k2+k3+k4+k5+k6;
 
 clear; clc;
 
-syms l1 l2 l3 l4 q1 q2 q3 q4 q5 q6
+syms l1 l2 l3 l4 
+syms q1 q2 q3 q4 q5 q6
+syms c
 
 S01 = DHC(0,0,q1,l1);
 S12 = DHC(pi/2,0,(pi/2)+q2,0);
@@ -296,15 +298,19 @@ S05=S01*S12*S23*S34*S45;
 S06=S01*S12*S23*S34*S45*S56;
 S07=S01*S12*S23*S34*S45*S56*S67;
 
+
+%%
 q1 = 0; q2 = 0; q3 = 0; q4 = 0; q5 = 0; q6 = 0;
 
-ABB1100_Parametros
+
 
 % Alturas a los Centros de Masa
 
 h1=subs(S01(3,4),l1,dcz1);
 h2=subs(S02(3,4),l1,dcz2);
 h3=subs(S03(3,4),l2,dcz3);
+
+ABB1100_Parametros
 
 double(eval(h1))
 double(eval(h2))
