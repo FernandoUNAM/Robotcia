@@ -18,6 +18,12 @@ S45 = DHC(-pi/2,0,q5,0);
 S56 = DHC(pi/2,0,q6,0);
 S67 = DHC(0,0,0,l4);
 
+S02=S01*S12;
+S03=S01*S12*S23;
+S04=S01*S12*S23*S34;
+S05=S01*S12*S23*S34*S45;
+S06=S01*S12*S23*S34*S45*S56;
+S07=S01*S12*S23*S34*S45*S56*S67;
 
 %%  Creación de la Cinemática Directa
 %   Multiplicación sucesiva de todos los movimientos articulares
@@ -230,6 +236,7 @@ syms q1pp q2pp q3pp q4pp q5pp q6pp q7pp
 syms m1 m2 m3 m4 m5 m6 m7
 
 % Inercia de cuerpos del Robot
+
 syms Ixx1 Ixx2 Ixx3 Ixx4 Ixx5 Ixx6 Ixx7
 syms Iyy1 Iyy2 Iyy3 Iyy4 Iyy5 Iyy6 Iyy7
 syms Izz1 Izz2 Izz3 Izz4 Izz5 Izz6 Izz7
@@ -247,14 +254,58 @@ I5 = diag([Ixx5 Iyy5 Izz5]);
 I6 = diag([Ixx6 Iyy6 Izz6]);
 I7 = diag([Ixx7 Iyy6 Izz7]);
 
-% Vectores de Posición a Centros de Masa
+% Vectores de Posición a los Centros de Masa
 
-P01 = S01(1:3,4);
-P12 = S12(1:3,4);
-P23 = S23(1:3,4);
-P34 = S34(1:3,4);
-P45 = S45(1:3,4);
-P56 = S56(1:3,4);
-P67 = S67(1:3,4);
+P0_cm0 = [dcx0 dcy0 dcz0];
+P1_cm1 = [dcx1 dcy1 dcz1];
+P2_cm2 = [dcx2 dcy2 dcz2];
+P3_cm3 = [dcx3 dcy3 dcz3];
+P4_cm4 = [dcx4 dcy4 dcz4];
+P5_cm5 = [dcx5 dcy5 dcz5];
+P6_cm6 = [dcx6 dcy6 dcz6];
 
-P01_cm = 
+% Energía Cinética
+
+k1=1/2*m1*transpose(v11+cross(w11,P1_cm1))*(v11+cross(w11,P1_cm1))+1/2*transpose(w11)*I1*w11;
+k2=1/2*m2*transpose(v22+cross(w22,P2_cm2))*(v22+cross(w22,P2_cm2))+1/2*transpose(w22)*I2*w22;
+k3=1/2*m3*transpose(v33+cross(w33,P3_cm3))*(v33+cross(w33,P3_cm3))+1/2*transpose(w33)*I3*w33;
+k4=1/2*m4*transpose(v44+cross(w44,P4_cm4))*(v44+cross(w44,P4_cm4))+1/2*transpose(w44)*I4*w44;
+k5=1/2*m5*transpose(v55+cross(w55,P5_cm5))*(v55+cross(w55,P5_cm5))+1/2*transpose(w55)*I5*w55;
+k6=1/2*m6*transpose(v66+cross(w66,P6_cm6))*(v66+cross(w66,P6_cm6))+1/2*transpose(w66)*I6*w66;
+
+kt=k1+k2+k3+k4+k5+k6;
+
+%%
+
+clear; clc;
+
+syms l1 l2 l3 l4 q1 q2 q3 q4 q5 q6
+
+S01 = DHC(0,0,q1,l1);
+S12 = DHC(pi/2,0,(pi/2)+q2,0);
+S23 = DHC(0,l2,q3,0);
+S34 = DHC(pi/2,0,q4,l3);
+S45 = DHC(-pi/2,0,q5,0);
+S56 = DHC(pi/2,0,q6,0);
+S67 = DHC(0,0,0,l4);
+
+S02=S01*S12;
+S03=S01*S12*S23;
+S04=S01*S12*S23*S34;
+S05=S01*S12*S23*S34*S45;
+S06=S01*S12*S23*S34*S45*S56;
+S07=S01*S12*S23*S34*S45*S56*S67;
+
+q1 = 0; q2 = 0; q3 = 0; q4 = 0; q5 = 0; q6 = 0;
+
+ABB1100_Parametros
+
+% Alturas a los Centros de Masa
+
+h1=subs(S01(3,4),l1,dcz1);
+h2=subs(S02(3,4),l1,dcz2);
+h3=subs(S03(3,4),l2,dcz3);
+
+double(eval(h1))
+double(eval(h2))
+double(eval(h3))
