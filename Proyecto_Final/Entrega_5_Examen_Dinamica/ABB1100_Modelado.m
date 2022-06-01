@@ -307,8 +307,6 @@ S06=S01*S12*S23*S34*S45*S56;
 S07=S01*S12*S23*S34*S45*S56*S67;
 
 
-q1 = 0; q2 = 0; q3 = 0; q4 = 0; q5 = 0; q6 = 0;
-
 % Alturas a los Centros de Masa
 
 h1 = subs(S01(3,4),l1,l1+dcz1);
@@ -317,17 +315,6 @@ h3 = subs(S03(3,4),l2,l2+dcz3);
 h4 = subs(S04(3,4),l3,l3+dcz4);
 h5 = subs(S05(3,4),l3,l3+dcz5);
 h6 = subs(S06(3,4),l4,l4+dcz6);
-
-
-ABB1100_Parametros
-
-double(eval(h1))
-double(eval(h2))
-double(eval(h3))
-double(eval(h4))
-double(eval(h5))
-double(eval(h6))
-
 
 %% Energía Potencial
 
