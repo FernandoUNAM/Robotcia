@@ -336,9 +336,18 @@ tau6 = [diff(diff(L,q6p),q1)    diff(diff(L,q6p),q2)    diff(diff(L,q6p),q3)    
 
 toc
 
-save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","-mat")
+tic 
+tau1s = simplify(tau1);
+tau2s = simplify(tau2);
+tau3s = simplify(tau3);
+tau4s = simplify(tau4);
+tau5s = simplify(tau5);
+tau6s = simplify(tau6);
+toc
 
-%% Matrices de Inercia, Coriolis y de Gravedad
+save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","tau1s","tau2s","tau3s","tau4s","tau5s","tau6s""-mat")
+
+%%
 
 % Matriz de Inercia M
 
@@ -379,7 +388,12 @@ dKE = [diff(KE,q1);diff(KE,q2);diff(KE,q3);diff(KE,q4);diff(KE,q5);diff(KE,q6)];
 C = Mp*qp-dKE;
 
 toc
-%%
+
+% Simplificación de matrices G, M, C
+
+Gs = simplify(G);
+Ms = simplify(M);
+Cs = simplify(C);
 
 % Evaluar las matrices
 
@@ -394,6 +408,7 @@ Ge = eval(G);
 Mes = simplify(Me);
 Ces = simplify(Ce);
 Ges = simplify(Ge);
+
 
 save("MCG.mat","Me","Ge","Ce","Mes","Ges","Ces","M","G","C","-mat");
 
@@ -451,3 +466,4 @@ Fz07_0 = 0;
 
 % Coeficientes de Fricción
 f = [0;0;0;0;0;0];
+
