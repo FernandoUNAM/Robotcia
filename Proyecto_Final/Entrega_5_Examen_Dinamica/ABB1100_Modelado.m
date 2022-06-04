@@ -336,18 +336,9 @@ tau6 = [diff(diff(L,q6p),q1)    diff(diff(L,q6p),q2)    diff(diff(L,q6p),q3)    
 
 toc
 
-tic 
-tau1s = simplify(tau1);
-tau2s = simplify(tau2);
-tau3s = simplify(tau3);
-tau4s = simplify(tau4);
-tau5s = simplify(tau5);
-tau6s = simplify(tau6);
-toc
+save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","-mat")
 
-save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","tau1s","tau2s","tau3s","tau4s","tau5s","tau6s""-mat")
-
-%%
+%% Matrices de Inercia, Coriolis y de Gravedad
 
 % Matriz de Inercia M
 
@@ -388,12 +379,7 @@ dKE = [diff(KE,q1);diff(KE,q2);diff(KE,q3);diff(KE,q4);diff(KE,q5);diff(KE,q6)];
 C = Mp*qp-dKE;
 
 toc
-
-% Simplificación de matrices G, M, C
-
-Gs = simplify(G);
-Ms = simplify(M);
-Cs = simplify(C);
+%%
 
 % Evaluar las matrices
 
@@ -409,5 +395,60 @@ Mes = simplify(Me);
 Ces = simplify(Ce);
 Ges = simplify(Ge);
 
-save("MCG.mat","Me","Ge","Ce","M","G","C","Ms","Gs","Cs");
+save("MCG.mat","Me","Ge","Ce","Mes","Ges","Ces","M","G","C","-mat");
 
+%%
+
+fid = fopen('Me1.txt', 'wt');
+fprintf(fid, '%s\n', char(Me));
+fclose(fid);
+
+fid = fopen('Ge1.txt', 'wt');
+fprintf(fid, '%s\n', char(Ge));
+fclose(fid);
+
+fid = fopen('Ce1.txt', 'wt');
+fprintf(fid, '%s\n', char(Ce));
+fclose(fid);
+
+%% Dinámica Directa
+
+% Fuerza Externa
+
+syms Fx07 Fy07 Fz07
+
+F = [Fx07; Fy07; Fz07];
+
+R07 = R01*R12*R23*R34*R45*R56*R67;
+
+v07 = R07*v77;
+w07 = R07*w77;
+
+J07 = [diff(v07(1),q1p) diff(v07(1),q2p) diff(v07(1),q3p) diff(v07(1),q4p) diff(v07(1),q5p) diff(v07(1),q6p);...
+       diff(v07(2),q1p) diff(v07(2),q2p) diff(v07(2),q3p) diff(v07(2),q4p) diff(v07(2),q5p) diff(v07(2),q6p);...
+       diff(v07(3),q1p) diff(v07(3),q2p) diff(v07(3),q3p) diff(v07(3),q4p) diff(v07(3),q5p) diff(v07(3),q6p)];
+
+Fext = transpose(J07)*F;
+
+Fe = eval(Fext);
+
+FeS = simplify(Fe);
+
+save("Fext.mat","Fext","Fexts","Fe","FeS","J07","-mat")
+
+%% Condiciones Iniciales
+
+% Posición Inicial de Articulaciones
+q0 = deg2rad([0;0;0;0;0;0]);
+
+% Torque Inicial de Articulaciones
+tau_inicial = [0;0;0;0;0;0];
+
+% Fuerza Externa Inicial en Articulaciones
+Fx07_0 = 0;
+Fy07_0 = 0;
+Fz07_0 = 0;
+
+% Coeficientes de Fricción
+
+f = [0;0;0;0;0;0];
