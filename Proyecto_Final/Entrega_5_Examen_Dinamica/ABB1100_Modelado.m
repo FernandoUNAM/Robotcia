@@ -309,6 +309,8 @@ qpp = [q1pp;q2pp;q3pp;q4pp;q5pp;q6pp];
 
 Qp = [qp;qpp];
 
+tic
+
 tau1 = [diff(diff(L,q1p),q1)    diff(diff(L,q1p),q2)    diff(diff(L,q1p),q3)    diff(diff(L,q1p),q4)    diff(diff(L,q1p),q5)    diff(diff(L,q1p),q6)...
         diff(diff(L,q1p),q1p)    diff(diff(L,q1p),q2p)    diff(diff(L,q1p),q3p)    diff(diff(L,q1p),q4p)    diff(diff(L,q1p),q5p)    diff(diff(L,q1p),q6p)]*Qp-diff(L,q1);
 
@@ -332,6 +334,55 @@ tau5 = [diff(diff(L,q5p),q1)    diff(diff(L,q5p),q2)    diff(diff(L,q5p),q3)    
 tau6 = [diff(diff(L,q6p),q1)    diff(diff(L,q6p),q2)    diff(diff(L,q6p),q3)    diff(diff(L,q6p),q4)    diff(diff(L,q6p),q5)    diff(diff(L,q6p),q6)...
         diff(diff(L,q6p),q1p)    diff(diff(L,q6p),q2p)    diff(diff(L,q6p),q3p)    diff(diff(L,q6p),q4p)    diff(diff(L,q6p),q5p)    diff(diff(L,q6p),q6p)]*Qp-diff(L,q6);
 
+toc
+
+save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","-mat")
+
+%%
+
+% Matriz de Inercia M
+
+tic 
+
+M = [diff(tau1,q1pp),diff(tau1,q2pp),diff(tau1,q3pp),diff(tau1,q4pp),diff(tau1,q5pp),diff(tau1,q6pp);...
+     diff(tau2,q1pp),diff(tau2,q2pp),diff(tau2,q3pp),diff(tau2,q4pp),diff(tau2,q5pp),diff(tau2,q6pp);...
+     diff(tau3,q1pp),diff(tau3,q2pp),diff(tau3,q3pp),diff(tau3,q4pp),diff(tau3,q5pp),diff(tau3,q6pp);...
+     diff(tau4,q1pp),diff(tau4,q2pp),diff(tau4,q3pp),diff(tau4,q4pp),diff(tau4,q5pp),diff(tau4,q6pp);...
+     diff(tau5,q1pp),diff(tau5,q2pp),diff(tau5,q3pp),diff(tau5,q4pp),diff(tau5,q5pp),diff(tau5,q6pp);...
+     diff(tau6,q1pp),diff(tau6,q2pp),diff(tau6,q3pp),diff(tau6,q4pp),diff(tau6,q5pp),diff(tau6,q6pp)];
+
+toc
+
+% Vector de Fuerzas Gravitacionales G
+
+tic
+
+g1 = subs(tau1,[transpose(qp),transpose(qpp)],zeros(1,12));
+g2 = subs(tau2,[transpose(qp),transpose(qpp)],zeros(1,12));
+g3 = subs(tau3,[transpose(qp),transpose(qpp)],zeros(1,12));
+g4 = subs(tau4,[transpose(qp),transpose(qpp)],zeros(1,12));
+g5 = subs(tau5,[transpose(qp),transpose(qpp)],zeros(1,12));
+g6 = subs(tau6,[transpose(qp),transpose(qpp)],zeros(1,12));
+
+toc
+
+G = [g1;g2;g3;g4;g5;g6];
+
+% Matriz de Coriolis
+
+tic 
+
+Mp = diff_matrix(M,qp,q);
+KE = 1/2*transpose(qp)*M*qp;
+dKE = [diff(KE,q1);diff(KE,q2);diff(KE,q3);diff(KE,q4);diff(KE,q5);diff(KE,q6)];
+
+C = Mp*qp-dKE;
+
+toc
+
+%% Evaluación de Matrices
+
+tic 
 
 % Modelado de Torques en Forma Matricial
 M=[diff(tau1,q1pp),    diff(tau1,q2pp),    diff(tau1,q3pp),    diff(tau1,q4pp),    diff(tau1,q5pp),    diff(tau1,q6pp);...
@@ -370,8 +421,12 @@ M*qpp+C+G
 
 % Evaluar las matrices
 ABB1100_Parametros
+
 M=eval(M)
 C=eval(C)
 G=eval(G)
 
 
+save("MCG.mat","Me","Ge","Ce","M","G","C");
+
+toc
