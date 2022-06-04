@@ -399,15 +399,15 @@ save("MCG.mat","Me","Ge","Ce","M","G","C","-mat");
 
 %%
 
-fid = fopen('Me1.txt', 'wt');
+fid = fopen('Me2.txt', 'wt');
 fprintf(fid, '%s\n', char(Me));
 fclose(fid);
 
-fid = fopen('Ge1.txt', 'wt');
+fid = fopen('Ge2.txt', 'wt');
 fprintf(fid, '%s\n', char(Ge));
 fclose(fid);
 
-fid = fopen('Ce1.txt', 'wt');
+fid = fopen('Ce2.txt', 'wt');
 fprintf(fid, '%s\n', char(Ce));
 fclose(fid);
 
