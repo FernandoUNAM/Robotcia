@@ -211,19 +211,19 @@ toc
 save("ABB1100_CinematicaVariables","DETJ77","DETJ77s","CD","EQ","J77i","J77is","J77ps");
 
 diary("ABB1100_J77i.txt")
-J77i;
+J77i
 diary off
 
 diary("ABB1100_J77is.txt")
-J77is;
+J77is
 diary off
 
 diary("ABB1100_J77p.txt")
-J77p;
+J77p
 diary off
 
 diary("ABB1100_J77ps.txt")
-J77ps;
+J77ps
 diary off
 
 
@@ -336,16 +336,7 @@ tau6 = [diff(diff(L,q6p),q1)    diff(diff(L,q6p),q2)    diff(diff(L,q6p),q3)    
 
 toc
 
-tic 
-tau1s = simplify(tau1);
-tau2s = simplify(tau2);
-tau3s = simplify(tau3);
-tau4s = simplify(tau4);
-tau5s = simplify(tau5);
-tau6s = simplify(tau6);
-toc
-
-save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","tau1s","tau2s","tau3s","tau4s","tau5s","tau6s""-mat")
+save("TAU.mat","tau1","tau2","tau3","tau4","tau5","tau6","-mat")
 
 %%
 
@@ -389,28 +380,22 @@ C = Mp*qp-dKE;
 
 toc
 
-% Simplificación de matrices G, M, C
-
-Gs = simplify(G);
-Ms = simplify(M);
-Cs = simplify(C);
-
 % Evaluar las matrices
 
 ABB1100_Parametros
-
+tic
 Me = eval(M);
 Ce = eval(C);
 Ge = eval(G);
-
+toc
 % Simplificación de Matrices Evaluadas
-
+tic
 Mes = simplify(Me);
 Ces = simplify(Ce);
 Ges = simplify(Ge);
+toc
 
-
-save("MCG.mat","Me","Ge","Ce","Mes","Ges","Ces","M","G","C","-mat");
+save("MCG.mat","Me","Ge","Ce","M","G","C","-mat");
 
 %%
 
