@@ -450,5 +450,4 @@ Fy07_0 = 0;
 Fz07_0 = 0;
 
 % Coeficientes de Fricción
-
 f = [0;0;0;0;0;0];
