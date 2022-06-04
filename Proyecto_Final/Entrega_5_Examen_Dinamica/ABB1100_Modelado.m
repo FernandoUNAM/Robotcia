@@ -380,53 +380,13 @@ C = Mp*qp-dKE;
 
 toc
 
-%% Evaluación de Matrices
-
-tic 
-
-% Modelado de Torques en Forma Matricial
-M=[diff(tau1,q1pp),    diff(tau1,q2pp),    diff(tau1,q3pp),    diff(tau1,q4pp),    diff(tau1,q5pp),    diff(tau1,q6pp);...
-    diff(tau2,q1pp),    diff(tau2,q2pp),    diff(tau2,q3pp),    diff(tau2,q4pp),    diff(tau2,q5pp),    diff(tau2,q6pp);...
-    diff(tau3,q1pp),    diff(tau3,q2pp),    diff(tau3,q3pp),    diff(tau3,q4pp),    diff(tau3,q5pp),    diff(tau3,q6pp);...
-    diff(tau4,q1pp),    diff(tau4,q2pp),    diff(tau4,q3pp),    diff(tau4,q4pp),    diff(tau4,q5pp),    diff(tau4,q6pp);...
-    diff(tau5,q1pp),    diff(tau5,q2pp),    diff(tau5,q3pp),    diff(tau5,q4pp),    diff(tau5,q5pp),    diff(tau5,q6pp);...
-    diff(tau6,q1pp),    diff(tau6,q2pp),    diff(tau6,q3pp),    diff(tau6,q4pp),    diff(tau6,q5pp),    diff(tau6,q6pp)]
-
-
-% Vector de fuerzas gravitacionales G nx1
-g1=subs(tau1,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-g2=subs(tau2,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-g3=subs(tau3,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-g4=subs(tau4,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-g5=subs(tau5,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-g6=subs(tau6,[q1pp,q2pp,q3pp,q4pp,q5pp,q6pp,q1p,q2p,q3p,q4p,q5p,q6p],[0,0,0,0,0,0,0,0,0,0,0,0]);
-
-G=[g1;g2;g3;gg4;g5;g6]
-
-% Cálculo de C(q,qp)qp
-% C(q,qp)qp=Mp(q)qp-1/2*diff(transpose(qp)*M*qp)
-
-qpp=[q1pp;q2pp;q3pp;q4pp;q5pp;q6pp];
-qp=[q1p;q2p;q3p;q4p;q5p;q6p];
-q=[q1;q2;q3;q4;q5;q6];
-
-% Cálculo de Mp
-Mp=diff_matrix(M,qp,q);
-KE=1/2*transpose(qp)*M*qp;
-dKe=[diff(KE,q1);    diff(KE,q2);    diff(KE,q3);    diff(KE,q4);    diff(KE,q5);    diff(KE,q6)]
-
-C=Mp-dKE
-
-M*qpp+C+G
-
 % Evaluar las matrices
+
 ABB1100_Parametros
 
-M=eval(M)
-C=eval(C)
-G=eval(G)
-
+Me = eval(M);
+Ce = eval(C);
+Ge = eval(G);
 
 save("MCG.mat","Me","Ge","Ce","M","G","C");
 
-toc
