@@ -24,19 +24,3 @@ fid = fopen(new_filename, 'w');
 fwrite(fid, S);
 fclose(fid);
 
-%% Additional replacements to result in a clean Inertia document
-
-%{
-    S = regexprep(S,'\n\s', '');
-    S = regexprep(S,'[A-D]\S{0,100}\s{0,25}','')
-    S = regexprep(S,'[F-H]\S{0,100}\s{0,25}','')
-    S = regexprep(S,'[J-Z]\S{0,100}\s{0,25}','')
-    S = regexprep(S,"[a-u]\S{0,2}","")
-    S = regexprep(S,'\n\s', '');
-    S = regexprep(S,"[E]\d","")
-    S = regexprep(S,"[z]\s","")
-    S = regexprep(S,"[Á]\d","")
-    S = regexprep(S,"\I..\S{9,11}","");
-    S = regexprep(S,"","");
-%}
-
