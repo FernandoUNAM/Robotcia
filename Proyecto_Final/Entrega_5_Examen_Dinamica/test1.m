@@ -1,0 +1,1 @@
+[sin(pi) + sin(pi + q4);sin(pi/2) + sin(pi/2 + q2);cos(pi) + cos(pi + q1);cos(pi/2)+cos(pi/2 + q2)]

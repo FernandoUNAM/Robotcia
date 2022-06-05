@@ -1,13 +1,3 @@
-0
-sin(pi + q4)
-
-1
-sin(pi/2 + q2)
-
--1
-cos(pi + q1)
-
-0
-cos(pi/2 + q2)
+[0 + sin(pi + q4);1 + sin(pi/2 + q2);-1 + cos(pi + q1);0+cos(pi/2 + q2)]
 
 

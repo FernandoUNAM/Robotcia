@@ -388,11 +388,12 @@ Me = eval(M);
 Ce = eval(C);
 Ge = eval(G);
 toc
+%%
 % Simplificación de Matrices Evaluadas
 tic
-Mes = simplify(Me);
-Ces = simplify(Ce);
-Ges = simplify(Ge);
+Mes = simplify(Me,"Seconds",60);
+Ces = simplify(Ce,"Seconds",60);
+Ges = simplify(Ge,"Seconds",60);
 toc
 
 save("MCG.mat","Me","Ge","Ce","M","G","C","-mat");

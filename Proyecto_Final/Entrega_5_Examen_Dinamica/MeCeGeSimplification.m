@@ -1,4 +1,4 @@
-filename = 'Ce2.txt';
+filename = 'test1.m';
 new_filename = ['new_' filename];
 
 S = fileread(filename);
