@@ -433,9 +433,9 @@ Fext = transpose(J07)*F;
 
 Fe = eval(Fext);
 
-FeS = simplify(Fe);
+%FeS = simplify(Fe);
 
-save("Fext.mat","Fext","Fexts","Fe","FeS","J07","-mat")
+save("Fext.mat","Fext","Fe","J07","-mat")
 
 %% Condiciones Iniciales
 
