@@ -94,13 +94,13 @@ end
 
 % Limites de Visualización de la Gráfica
 if zoom == 1
-    ejes = [-0.1 0.4 -0.1 0.4 -0.1 0.7];
+    ejes = [-0.1 0.4 -0.1 0.4 -0.4 0.92];
 
 elseif zoom == 0.5
-    ejes = [-0.1 0.7 -0.35 0.35 -0.1 0.7];
+    ejes = [-0.1 0.7 -0.35 0.35 -0.4 0.92];
 
 else
-ejes = [-.8 .8 -.8 .8 -.4 1.2];
+ejes = [-.6 .6 -.6 .6 -0.4 0.95];
     
 end
 
