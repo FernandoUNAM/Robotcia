@@ -20,5 +20,5 @@ for i = 1:1:(length(sim_Time))
     clf
     ABB1100_RobotDrawing(q1s(i),q2s(i),q3s(i),q4s(i),q5s(i),q6s(i))
     pause(0.01)
-    %exportgraphics(gcf,'ABB1100_Simulacion_Dinamica_0F_P0.gif','Append',true);
+    exportgraphics(gcf,'ABB1100_Simulacion_Dinamica_FX200.gif','Append',true);
 end
