@@ -20,7 +20,7 @@ Incremento = 1;
 Delay = 0.001;
 
 % Velocidad de simulación
-fast = 0.5
+fast = 0.5;
 
 % Puntos de Trayectoria
 % Punto    xe      ye          ze       alpha   beta    gamma   Time
@@ -222,6 +222,7 @@ end
 title('Movimiento Cartesiano del Robot')
 RobotDrawingTime = toc;
 
+pqpath = [q1;q2;q3;q4;q5;q6;q1p;q2p;q3p;q4p;q5p;q6p;q1pp;q2pp;q3pp;q4pp;q5pp;q6pp];
 
 Alpha_deg = deg2rad(Alpha)
 Beta_deg = deg2rad(Beta)

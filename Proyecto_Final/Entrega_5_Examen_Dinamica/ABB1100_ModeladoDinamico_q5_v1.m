@@ -282,7 +282,7 @@ fclose(fid);
 fid = fopen("Fe_P2_v1.m","wt");
 fprintf(fid,"%s\n",char(Fe));
 fclose(fid);
-%%
+
 save("DinamicaDirecta_v2.mat","Fext","Fe","J07","Me","Ge","Ce","Fe","M","G","C","-mat")
 %% Métodos de Simplificación
 clear; clc;
@@ -290,11 +290,11 @@ load("DinamicaDirecta_v2.mat")
 %%
 clc;
 
-filename = 'Ce_P2_v1.m';
-s_filename = 'Ce_P2_v1_s.m';
-ss_filename = 'Ce_P2_v1_ss.m';
-sss_filename = 'Ce_P2_v1_sss.m';
-ssss_filename = 'Ce_P2_v1_ssss.m';
+filename = 'Fe_P2_v1.m';
+s_filename = 'Fe_P2_v1_s.m';
+ss_filename = 'Fe_P2_v1_ss.m';
+sss_filename = 'Fe_P2_v1_sss.m';
+ssss_filename = 'Fe_P2_v1_ssss.m';
 
 S = fileread(filename);
 
@@ -303,9 +303,9 @@ S = regexprep(S, 'cos\(pi\)','-1');
 S = regexprep(S, 'sin\(pi/2\)','1');
 S = regexprep(S, 'sin\(pi\)','0');
 
-S = ['CeS_P2_s = ',S,';'];
-S = ['syms q1 q2 q3 q4 q5 q6 q1p q2p q3p q4p q5p q6p', newline, S];
-S = ['g = 9.81; pi = 3.1416;', newline, S ,newline];
+S = ['FeS_P2_s = ',S,';'];
+S = ['syms q1 q2 q3 q4 q5 q6 q1p q2p q3p q4p q5p q6p Fx07 Fy07 Fz07', newline, S];
+S = ['g = 9.81; pi = 3.1416; l1 = .327; l2 = .290; l3 = .300; l4 = .064;', newline, S ,newline];
 
 fid = fopen(s_filename, 'w');
 fwrite(fid, S);
@@ -314,34 +314,38 @@ fclose(fid);
 run(s_filename)
 
 fid = fopen(ss_filename, 'wt');
-fprintf(fid, '%s\n', char(CeS_P2_s));
+fprintf(fid, '%s\n', char(FeS_P2_s));
 fclose(fid);
 
-CeS_P2_sss = simplify(CeS_P2_s);
+FeS_P2_sss = simplify(FeS_P2_s);
 
 fid = fopen(sss_filename, 'wt');
-fprintf(fid, '%s\n', char(CeS_P2_sss));
+fprintf(fid, '%s\n', char(FeS_P2_sss));
 fclose(fid);
 
-CeS_P2_ssss = vpa(CeS_P2_sss,4);
+FeS_P2_ssss = vpa(FeS_P2_sss,4);
 
 fid = fopen(ssss_filename, 'wt');
-fprintf(fid, '%s\n', char(CeS_P2_ssss));
+fprintf(fid, '%s\n', char(FeS_P2_ssss));
 fclose(fid);
 
-clearvars -except MeS_P2_s MeS_P2_sss MeS_P2_ssss Ce Fe Ge Me 
+clearvars -except Ce Fe Ge Me CeS_P2_s CeS_P2_sss CeS_P2_ssss MeS_P2_s MeS_P2_sss MeS_P2_ssss GeS_P2_s GeS_P2_sss GeS_P2_ssss FeS_P2_s FeS_P2_sss FeS_P2_ssss 
 
+%% Comprobaciones
 
-%%
 q1 = 1; q2 = 1; q3 = 1; q4 = 1; q5 = 1; q6 = 1;
-q1p = 1; q2p = 1; q3p = 1; q4p = 1; q5p = 1; q6p = 1;
+q1p = 0; q2p = 0; q3p = 0; q4p = 0; q5p = 0; q6p = 0;
 tau1 = 0; tau2 = 0; tau3 = 0; tau4 = 0; tau5 = 0; tau6 = 0; 
 friccion = [0;0;0;0;0;0];
-Fx07 = 0;
-Fy07 = 0;
-Fz07 = 0;
+Fx07 = 1;
+Fy07 = 1;
+Fz07 = 1;
 pi = 3.1416;
 
-eval(Ce)
-eval(vpa(Ce,2))
+eval(FeS_P2_s)
+eval(FeS_P2_sss)
+eval(FeS_P2_ssss)
 
+%% Comprobación de Funciones
+
+ABB1100_DinamicaDirecta_3(0,-pi,pi/2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)

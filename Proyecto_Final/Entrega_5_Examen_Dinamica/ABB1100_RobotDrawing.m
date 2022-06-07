@@ -6,7 +6,7 @@ function [] = ABB1100_RobotDrawing(q1,q2,q3,q4,q5,q6)
 
 % Activación de Sistemas de Referencia
 global sysref
-global zoom
+%global zoom
 
 % Se mandan a llamar los parámetros físicos del robot
 ABB1100_Parametros
@@ -93,16 +93,17 @@ else
 end
 
 % Limites de Visualización de la Gráfica
-if zoom == 1
-    ejes = [-0.1 0.4 -0.1 0.4 -0.4 0.92];
+% if zoom == 1
+%     ejes = [-0.9 0.9 -0.9 0.9 -0.92 0.92];
+% 
+% elseif zoom == 0.5
+%     ejes = [-0.9 0.9 -0.9 0.9 -0.92 0.92];
 
-elseif zoom == 0.5
-    ejes = [-0.1 0.7 -0.35 0.35 -0.4 0.92];
+%else
 
-else
-ejes = [-.6 .6 -.6 .6 -0.4 0.95];
+ejes = [-0.6 0.6 -0.6 0.6 -0.92 0.92];
     
-end
+%end
 
 axis(ejes);
 
